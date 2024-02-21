@@ -5,10 +5,13 @@
         static void Main(string[] args)
         {
             LinkedList list = new LinkedList();
+
             list.InsertLast(1);
             list.InsertLast(5);
             list.InsertLast(4);
+            list.Print();
 
+            list.InsertAfter(list.Find(5), 10);
             list.Print();
         }
         public class LinkedListNode
@@ -18,7 +21,7 @@
             public LinkedListNode(int data)
             {
                 this.Data = data;
-                this.next = null;
+                
             }
         }
         class LinkedListIterator
@@ -65,6 +68,25 @@
                 }
                 this.length++;
             }
+            /// <summary>
+            /// make newNode"next" point to node"next" that i want to add after it
+            /// make node "next" pointer" point to newNode pointer"
+            /// if node was the last node => make newNode "Tail"
+            /// -- this method will use [Find()] to get the "node"
+            /// </summary>
+            /// <param name="node">node that u wnat to add after</param>
+            /// <param name="data">data that u want to add</param>
+            public void InsertAfter(LinkedListNode node, int data)
+            {
+                LinkedListNode newNode = new LinkedListNode(data);
+                newNode.next = node.next;
+                node.next = newNode;
+                if (Tail == node)
+                {
+                    this.Tail = newNode;
+                }
+                this.length++;
+            }
             public void Print()
             {
                 for (LinkedListIterator itr = this.begin(); itr.current() != null; itr.next())
@@ -72,6 +94,18 @@
                     Console.Write(itr.data() + " -> ");
                 }
                 Console.Write("\n");
+            }
+            public LinkedListNode Find(int data)
+            {
+                for (LinkedListIterator itr = this.begin(); itr.current() != null; itr.next())
+                {
+                    if (data ==itr.data())
+                    {
+                        return itr.current();
+                    }
+                    
+                }
+                return null;
             }
         }
     }
