@@ -16,6 +16,11 @@
 
             list.InsertBefore(list.Find(5), 15);
             list.Print();
+
+            list.DeleteNode(list.Find(1));
+            Console.WriteLine(list.Head.Data);
+            //list.DeleteNode(5);
+            list.Print();
         }
         public class LinkedListNode
         {
@@ -112,6 +117,53 @@
                 {
                     parent.next = newNode;
                 }
+                length++;
+            }
+            /// <summary>
+            /// make sure that node not null
+            /// if Head= Tail this means that node is only added node 
+            /// if deleted node is head make Head point to the node which deleted node point to
+            /// tail = deleted node this mean it is the last node so u should make parent of deleted "node" Tail
+            /// if deleted node not the tail make"parentNode.next" equal to deleted node.next"
+            /// </summary>
+            /// <param name="node">node that u want to delete <param>
+            public void DeleteNode(LinkedListNode node)
+            {
+                if (node != null)
+                {
+                    if (this.Head==this.Tail)
+                    {
+                        this.Head = null;
+                        this.Tail = null;
+                    }
+                    else if (this.Head==node)
+                    {
+                        this.Head = node.next;
+                    }
+                    else
+                    {
+                        LinkedListNode parentNode = FindParent(node);
+                        if (this.Tail==node)
+                        {
+                            this.Tail = parentNode;
+                        }
+                        else
+                        {
+                            parentNode.next = node.next;
+                        }
+                    }
+                    length--;
+                }
+                
+            }
+            public void DeleteNode(int data)
+            {
+                LinkedListNode node = this.Find(data);
+                if (node == null)
+                {
+                    return;
+                }
+                this.DeleteNode(node);
             }
             public void Print()
             {
