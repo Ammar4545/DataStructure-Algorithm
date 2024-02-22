@@ -13,6 +13,9 @@
 
             list.InsertAfter(list.Find(5), 10);
             list.Print();
+
+            list.InsertBefore(list.Find(5), 15);
+            list.Print();
         }
         public class LinkedListNode
         {
@@ -87,6 +90,29 @@
                 }
                 this.length++;
             }
+            /// <summary>
+            /// make newNode"next" point to node that i want to add before it
+            /// get parent that was pointing to "node"
+            /// if node has parent that mean we are adding in the middle 
+            /// if not that mean newNode will be the Head
+            /// -- this method will use [FindParent()] to get the parent of "node"
+            /// </summary>
+            /// <param name="node">node that u wnat to add after</param>
+            /// <param name="data">data that u want to add</param>
+            public void InsertBefore(LinkedListNode node , int data)
+            {
+                LinkedListNode newNode = new LinkedListNode(data);
+                newNode.next = node;
+                LinkedListNode parent = FindParent(node);
+                if (parent is null)
+                {
+                    this.Head = newNode;
+                }
+                else
+                {
+                    parent.next = newNode;
+                }
+            }
             public void Print()
             {
                 for (LinkedListIterator itr = this.begin(); itr.current() != null; itr.next())
@@ -104,6 +130,18 @@
                         return itr.current();
                     }
                     
+                }
+                return null;
+            }
+
+            public LinkedListNode FindParent(LinkedListNode node)
+            {
+                for (LinkedListIterator itr = this.begin(); itr.current() != null; itr.next())
+                {
+                    if (itr.current().next == node)
+                    {
+                        return itr.current(); // the parent of the node
+                    }
                 }
                 return null;
             }
