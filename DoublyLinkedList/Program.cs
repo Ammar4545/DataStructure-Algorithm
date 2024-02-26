@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.Design;
+using System.Diagnostics.Contracts;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DoublyLinkedList
 {
@@ -15,22 +18,25 @@ namespace DoublyLinkedList
             list.InsertLast(3);
             list.Print();
 
-            list.InsertAfter(list.Find(5), 10);
-            list.Print();
+            LinkedList copiedList = list.Copy();
+            copiedList.Print();
+            //list.InsertAfter(list.Find(5), 10);
+            //list.Print();
 
-           
+            //list.InsertBefore(list.Find(5), 10);
+            //list.Print();
 
-            list.DeleteNode(list.Find(1));
-            Console.WriteLine(list.Head.Data);
-            list.Print();
-          
-            list.DeleteNode(list.Find(5));
-            Console.WriteLine(list.Head.Data);
-            list.Print();
-           
+            //list.DeleteNode(list.Find(1));
+            //Console.WriteLine(list.Head.Data);
+            //list.Print();
 
-            list.Print();
-            list.Print();
+            //list.DeleteNode(list.Find(5));
+            //Console.WriteLine(list.Head.Data);
+            //list.Print();
+
+
+            //list.Print();
+            //list.Print();
         }
     }
     public class LinkedListNode
@@ -94,6 +100,7 @@ namespace DoublyLinkedList
             {
                 newNode.next.back = newNode;
             }
+            length++;
         }
         public void InsertLast(int data)
         {
@@ -109,20 +116,26 @@ namespace DoublyLinkedList
                 this.Tail.next = newNode;
                  this.Tail= newNode;
             }
+            length++;
         }
       
-        /// <summary>
-        /// make newNode"next" point to node that i want to add before it
-        /// get parent that was pointing to "node"
-        /// if node has parent that mean we are adding in the middle 
-        /// if not that mean newNode will be the Head
-        /// -- this method will use [FindParent()] to get the parent of "node"
-        /// </summary>
-        /// <param name="node">node that u wnat to add after</param>
-        /// <param name="data">data that u want to add</param>
+     
         public void InsertBefore(LinkedListNode node, int data)
         {
-           
+            LinkedListNode newNode = new LinkedListNode(data);
+            newNode.next = node;
+
+            if (node==this.Head)
+            {
+                Head = newNode;
+            }
+            else
+            {
+                node.back.next = newNode;
+            }
+            node.back = newNode;
+
+
         }
         /// <summary>
         /// make sure that node not null
@@ -155,7 +168,9 @@ namespace DoublyLinkedList
             }
             node= null ;
             length--;
+           
         }
+        
         public void DeleteNode(int data)
         {
             LinkedListNode node = this.Find(data);
@@ -164,6 +179,17 @@ namespace DoublyLinkedList
                 return;
             }
             this.DeleteNode(node);
+        }
+        public LinkedList Copy()
+        {
+            LinkedList copedLinkedList = new LinkedList();
+            for (LinkedListIterator itr = this.begin(); itr.current() != null; itr.next())
+            {
+                // Append each data element to the new list
+                copedLinkedList.InsertLast(itr.data());
+            }
+
+            return copedLinkedList;
         }
         public void Print()
         {
