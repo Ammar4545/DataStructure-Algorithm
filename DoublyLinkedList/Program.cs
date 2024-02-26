@@ -17,6 +17,20 @@ namespace DoublyLinkedList
 
             list.InsertAfter(list.Find(5), 10);
             list.Print();
+
+           
+
+            list.DeleteNode(list.Find(1));
+            Console.WriteLine(list.Head.Data);
+            list.Print();
+          
+            list.DeleteNode(list.Find(5));
+            Console.WriteLine(list.Head.Data);
+            list.Print();
+           
+
+            list.Print();
+            list.Print();
         }
     }
     public class LinkedListNode
@@ -120,8 +134,27 @@ namespace DoublyLinkedList
         /// <param name="node">node that u want to delete <param>
         public void DeleteNode(LinkedListNode node)
         {
-            
-
+            if (this.Head==this.Tail)
+            {
+                Head = Tail = null;
+            }
+            else if (node.back is null)
+            {
+                this.Head = node.next ;
+                node.next.back = null;
+            }
+            else if (node.next is null)
+            {
+                this.Tail = node.back;
+                node.back.next = null;
+            }
+            else
+            {
+                node.back.next = node.next;
+                node.next.back = node.back;
+            }
+            node= null ;
+            length--;
         }
         public void DeleteNode(int data)
         {
