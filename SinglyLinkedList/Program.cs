@@ -14,7 +14,6 @@ namespace SinglyLinkedList
             list.InsertLast(1);
             list.InsertLast(5);
             list.InsertLast(4);
-            list.InsertLast(4);
             list.Print();
 
             list.InsertAfter(5, 10);
@@ -40,7 +39,7 @@ namespace SinglyLinkedList
 
             }
         }
-        class LinkedListIterator
+        public class LinkedListIterator
         {
             private LinkedListNode currentNode;
             public LinkedListIterator() { currentNode = null; } //uesd to end the loop
@@ -57,7 +56,7 @@ namespace SinglyLinkedList
                 return this.currentNode;
             }
         }
-        class LinkedList
+        public class LinkedList
         {
             public int length;
             public LinkedListNode? Head;
@@ -152,6 +151,30 @@ namespace SinglyLinkedList
             /// if deleted node not the tail make"parentNode.next" equal to deleted node.next"
             /// </summary>
             /// <param name="node">node that u want to delete <param>
+            public void InsertFirst(int data)
+            {
+                if (!canInsert(data)) return;
+                var newNode = new LinkedListNode(data);
+
+                if (this.Head is null)
+                {
+                    this.Head = newNode;
+                    this.Tail = newNode;
+                }
+                else
+                {
+                    newNode.next=this.Head;
+                    this.Head = newNode;
+                }
+                this.length++;
+            }
+            public void DeleteHead(int nodeData)
+            {
+                if (this.Head is null)
+                    return;
+                this.Head = this.Head.next;
+                this.length--;
+            }
             public void DeleteNode(int nodeData)
             {
                 var node = this.Find(nodeData);
