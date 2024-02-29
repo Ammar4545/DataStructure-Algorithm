@@ -1,26 +1,34 @@
-﻿namespace SinglyLinkedList
+﻿using System.Data;
+using System.Reflection.Metadata.Ecma335;
+using System.Xml;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace SinglyLinkedList
 {
     public class Program
     {
         static void Main(string[] args)
         {
-            LinkedList list = new LinkedList();
+            LinkedList list = new LinkedList(true);
 
             list.InsertLast(1);
             list.InsertLast(5);
             list.InsertLast(4);
+            list.InsertLast(4);
             list.Print();
 
-            list.InsertAfter(list.Find(5), 10);
+            list.InsertAfter(5, 10);
+            list.DeleteNode(10);
             list.Print();
+            Console.WriteLine(list.length);
 
-            list.InsertBefore(list.Find(5), 15);
-            list.Print();
+            //list.InsertBefore(list.Find(5), 15);
+            //list.Print();
 
-            list.DeleteNode(list.Find(1));
-            Console.WriteLine(list.Head.Data);
-            //list.DeleteNode(5);
-            list.Print();
+            //list.DeleteNode(list.Find(1));
+            //Console.WriteLine(list.Head.Data);
+            ////list.DeleteNode(5);
+            //list.Print();
         }
         public class LinkedListNode
         {
@@ -29,7 +37,7 @@
             public LinkedListNode(int data)
             {
                 this.Data = data;
-                
+
             }
         }
         class LinkedListIterator
@@ -51,9 +59,14 @@
         }
         class LinkedList
         {
-            private int length;
+            public int length;
             public LinkedListNode? Head;
             public LinkedListNode? Tail;
+            public bool unique = false;
+            public LinkedList(bool unique)
+            {
+                this.unique = unique;
+            }
 
             public LinkedListIterator begin()
             {
@@ -63,6 +76,8 @@
 
             public void InsertLast(int data)
             {
+                if (!canInsert(data)) return;
+               
                 LinkedListNode newNode = new LinkedListNode(data);
                 if (Head is null)
                 {
@@ -84,11 +99,16 @@
             /// </summary>
             /// <param name="node">node that u wnat to add after</param>
             /// <param name="data">data that u want to add</param>
-            public void InsertAfter(LinkedListNode node, int data)
+            public void InsertAfter(int nodeData, int data)
             {
+                if (!canInsert(data)) return;
+
+                var node = this.Find(nodeData);
+
                 LinkedListNode newNode = new LinkedListNode(data);
                 newNode.next = node.next;
                 node.next = newNode;
+
                 if (Tail == node)
                 {
                     this.Tail = newNode;
@@ -104,11 +124,16 @@
             /// </summary>
             /// <param name="node">node that u wnat to add after</param>
             /// <param name="data">data that u want to add</param>
-            public void InsertBefore(LinkedListNode node , int data)
+            public void InsertBefore(int nodeData , int data)
             {
+                if (!canInsert(data)) return;
+
+                var node = this.Find(nodeData);
+
                 LinkedListNode newNode = new LinkedListNode(data);
                 newNode.next = node;
                 LinkedListNode parent = FindParent(node);
+
                 if (parent is null)
                 {
                     this.Head = newNode;
@@ -127,8 +152,9 @@
             /// if deleted node not the tail make"parentNode.next" equal to deleted node.next"
             /// </summary>
             /// <param name="node">node that u want to delete <param>
-            public void DeleteNode(LinkedListNode node)
+            public void DeleteNode(int nodeData)
             {
+                var node = this.Find(nodeData);
                 if (node != null)
                 {
                     if (this.Head==this.Tail)
@@ -152,19 +178,19 @@
                             parentNode.next = node.next;
                         }
                     }
-                    length--;
+                    this.length--;
                 }
                 
             }
-            public void DeleteNode(int data)
-            {
-                LinkedListNode node = this.Find(data);
-                if (node == null)
-                {
-                    return;
-                }
-                this.DeleteNode(node);
-            }
+            //public void DeleteNode(int data)
+            //{
+            //    LinkedListNode node = this.Find(data);
+            //    if (node == null)
+            //    {
+            //        return;
+            //    }
+            //    this.DeleteNode(node);
+            //}
             public void Print()
             {
                 for (LinkedListIterator itr = this.begin(); itr.current() != null; itr.next())
@@ -185,7 +211,23 @@
                 }
                 return null;
             }
-
+            bool isExists(int data)
+            {
+                if (this.Find(data) != null)
+                    return true;
+                else 
+                    return false;
+            }
+            bool canInsert(int data)
+            {
+                if (this.unique && this.isExists(data))
+                {
+                    Console.WriteLine($"this item {data} already exists");
+                    return false;
+                }
+                else
+                    return true;
+            }
             public LinkedListNode FindParent(LinkedListNode node)
             {
                 for (LinkedListIterator itr = this.begin(); itr.current() != null; itr.next())
