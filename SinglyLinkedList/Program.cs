@@ -175,6 +175,15 @@ namespace SinglyLinkedList
                 this.Head = this.Head.next;
                 this.length--;
             }
+
+            public void DeleteHead()
+            {
+                if (this.Head is null)
+                    return;
+                this.Head = this.Head.next;
+                this.length--;
+            }
+
             public void DeleteNode(int nodeData)
             {
                 var node = this.Find(nodeData);

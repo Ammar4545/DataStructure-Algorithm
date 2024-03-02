@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoublyLinkedList", "DoublyL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stack_LinkedListBased", "Stack_LinkedListBased\Stack_LinkedListBased.csproj", "{46E74969-CC93-487A-A389-2906E5564AF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stack_ArrayBased", "Stack_ArrayBased\Stack_ArrayBased.csproj", "{5C73ECE0-B125-454E-8387-317D1B5F05EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stack_ArrayBased", "Stack_ArrayBased\Stack_ArrayBased.csproj", "{5C73ECE0-B125-454E-8387-317D1B5F05EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queue_LinkedListBases", "QueueLinkedListBases\Queue_LinkedListBases.csproj", "{016F2D34-F398-480F-BF83-A5056F5A3510}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{5C73ECE0-B125-454E-8387-317D1B5F05EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C73ECE0-B125-454E-8387-317D1B5F05EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C73ECE0-B125-454E-8387-317D1B5F05EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{016F2D34-F398-480F-BF83-A5056F5A3510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{016F2D34-F398-480F-BF83-A5056F5A3510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{016F2D34-F398-480F-BF83-A5056F5A3510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{016F2D34-F398-480F-BF83-A5056F5A3510}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
