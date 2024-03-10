@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stack_ArrayBased", "Stack_A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue_LinkedListBases", "QueueLinkedListBases\Queue_LinkedListBases.csproj", "{016F2D34-F398-480F-BF83-A5056F5A3510}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dictionary", "Dictionary\Dictionary.csproj", "{19234C79-233D-46C2-BDA5-805A054FC1BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dictionary", "Dictionary\Dictionary.csproj", "{19234C79-233D-46C2-BDA5-805A054FC1BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FNV-1a", "FNV-1a\FNV-1a.csproj", "{B5D29CF6-5398-4C9A-AC4F-2CD5C4326A2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{19234C79-233D-46C2-BDA5-805A054FC1BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19234C79-233D-46C2-BDA5-805A054FC1BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19234C79-233D-46C2-BDA5-805A054FC1BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5D29CF6-5398-4C9A-AC4F-2CD5C4326A2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5D29CF6-5398-4C9A-AC4F-2CD5C4326A2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5D29CF6-5398-4C9A-AC4F-2CD5C4326A2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5D29CF6-5398-4C9A-AC4F-2CD5C4326A2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
