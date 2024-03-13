@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Reflection.Metadata.Ecma335;
+using System.Text;
 
 namespace HashTable
 {
@@ -6,7 +7,18 @@ namespace HashTable
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            HashTable<string, string> table = new HashTable<string, string>();
+            table.Print();
+            table.Set("Sinar", "sinar@gmail.com");
+            table.Set("Elvis", "elvis@gmail.com");
+            table.Set("Tane", "tane@gmail.com");
+            table.Print();
+            Console.WriteLine("[get] " + table.Get("Sinar"));
+            //Console.WriteLine("[get] " + table.Get("Tane"));
+            table.Set("Gerti", "gerti@gmail.com");
+            table.Set("Arist", "arist@gmail.com");
+            table.Print();
+            Console.WriteLine("[get] " + table.Get("Sinar"));
         }
         public class HashTable<Tkey,Tvalue> where Tkey : class
         {
@@ -25,7 +37,7 @@ namespace HashTable
             {
                 int hash = this.GetHash(key);
 
-                if (this.entries[hash] != null && this.entries[hash].Key==key)
+                if (this.entries[hash] != null && this.entries[hash].Key!=key)
                 {
                     hash = this.CollisionHandling(key, hash, true);
                 }
@@ -107,7 +119,8 @@ namespace HashTable
                 //why resize then copy with hashing and fixing the prolem of collision
                 //becouse we use the size of array for hashin and if we double the array of pairs this mean new size for hashing
                 this.entries = new KeyValuePair[newSize];
-                for (int i = 0; i < this.entries.Length; i++)
+                this.entriesCount = 0;
+                for (int i = 0; i < entriesCopy.Length; i++)
                 {
                     if (entriesCopy[i]==null)
                     {
@@ -117,10 +130,39 @@ namespace HashTable
                 }
 
             }
+
+            public Tvalue Get(Tkey key)
+            {
+                int hash = GetHash(key);
+                if (this.entries[hash]==null && this.entries[hash].Key!=key)
+                {
+                    this.CollisionHandling(key, hash, false);
+                }
+                if (hash==-1 && this.entries[hash]==null)
+                {
+                    return default(Tvalue);
+                }
+                if (this.entries[hash].Key==key)
+                {
+                    return this.entries[hash].Value;
+                }
+                else
+                {
+                    throw new Exception("INVALID HASH TABLE");
+                }
+            }
+
+            public void Set(Tkey key, Tvalue value)
+            {
+                this.ResizeOrNot();
+                this.AddToEntries(key, value);
+            }
+
             public int Size()
             {
                return this.entriesCount;
             }
+
             public class KeyValuePair
             {
                 Tkey _key;
@@ -140,6 +182,7 @@ namespace HashTable
                     _key = key;
                 }
             }
+
             public void Print()
             {
                 Console.WriteLine("-----------");
