@@ -99,9 +99,23 @@ namespace HashTable
                 }
                 int newSize = this.entries.Length * 2;
 
-                Console.WriteLine("[resize] from " +
-                  this.entries.Length + " to " + newSize);
-                //complete
+                Console.WriteLine("[resize] from " + this.entries.Length + " to " + newSize);
+                //new arr of pairs with "entries.Length" to copy data to it
+                KeyValuePair[] entriesCopy = new KeyValuePair[this.entries.Length];
+                Array.Copy(this.entries, entriesCopy, entriesCopy.Length);
+                //make new new arr of pairs with newsize 
+                //why resize then copy with hashing and fixing the prolem of collision
+                //becouse we use the size of array for hashin and if we double the array of pairs this mean new size for hashing
+                this.entries = new KeyValuePair[newSize];
+                for (int i = 0; i < this.entries.Length; i++)
+                {
+                    if (entriesCopy[i]==null)
+                    {
+                        continue;
+                    }
+                    this.AddToEntries(entriesCopy[i].Key, entriesCopy[i].Value);
+                }
+
             }
             public int Size()
             {
