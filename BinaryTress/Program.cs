@@ -15,6 +15,7 @@
             tree.Insert('H');
             tree.Insert('I');
             tree.Print();
+            Console.WriteLine("height = " +tree.Height());
         }
         public class BinaryTree<Tdata> where Tdata :IComparable<Tdata>
         {
@@ -64,6 +65,19 @@
                     this.Data = data;
                 }
             }
+            public int Height()
+            {
+                return internalHeight(this.Root);
+            }
+            //using recursion to get the height of the "TREE"
+            private int internalHeight(TreeNode node)
+            {
+                if (node == null)
+                {
+                    return 0;
+                }
+                return 1 + Math.Max(internalHeight(node.Left), internalHeight(node.Right));
+            }
             class NodeInfo
             {
                 public TreeNode Node;
@@ -73,7 +87,7 @@
                 public int EndPos { get { return StartPos + Size; } set { StartPos = value - Size; } }
                 public NodeInfo Parent, Left, Right;
             }
-            public void Print(int topMargin = 2, int LeftMargin = 2)
+            public void  Print(int topMargin = 2, int LeftMargin = 2)
             {
                 if (this.Root == null) return;
                 int rootTop = Console.CursorTop + topMargin;
