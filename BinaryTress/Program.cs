@@ -1,4 +1,7 @@
-﻿namespace BinaryTress
+﻿using System.Runtime.CompilerServices;
+using System.Xml;
+
+namespace BinaryTress
 {
     internal class Program
     {
@@ -16,6 +19,7 @@
             tree.Insert('I');
             tree.Print();
             Console.WriteLine("height = " +tree.Height());
+            tree.PreOrder();
         }
         public class BinaryTree<Tdata> where Tdata :IComparable<Tdata>
         {
@@ -65,6 +69,8 @@
                     this.Data = data;
                 }
             }
+
+            #region Height
             public int Height()
             {
                 return internalHeight(this.Root);
@@ -78,6 +84,25 @@
                 }
                 return 1 + Math.Max(internalHeight(node.Left), internalHeight(node.Right));
             }
+            #endregion
+
+            #region PreOrder
+            public void PreOrder()
+            {
+                internalPreOrder(Root);
+                Console.WriteLine("");
+            }
+            void internalPreOrder(TreeNode node)
+            {
+                if (node == null)
+                {
+                    return;
+                }
+                Console.Write(node.Data + "->");
+                internalPreOrder(node.Left);
+                internalPreOrder(node.Right);
+            }
+            #endregion
             class NodeInfo
             {
                 public TreeNode Node;
