@@ -19,12 +19,26 @@ namespace BinaryTress
             tree.Insert('I');
             tree.Print();
             Console.WriteLine("height = " +tree.Height());
+
             tree.PreOrder();
+            tree.InOrder();
+            tree.PostOrder();
         }
         public class BinaryTree<Tdata> where Tdata :IComparable<Tdata>
         {
             TreeNode Root;
-            public void Insert(Tdata data)
+            public void BSInsert(Tdata data)
+            {
+                TreeNode newNdoe = new TreeNode(data);
+                if (this.Root == null)
+                {
+                    Root = newNdoe;
+                    return;
+                }
+                TreeNode currNode= this.Root;
+
+            }
+                public void Insert(Tdata data)
             {
                 TreeNode newNdoe= new TreeNode(data);
                 if (this.Root==null)
@@ -86,7 +100,7 @@ namespace BinaryTress
             }
             #endregion
 
-            #region PreOrder
+            #region Depth based order
             public void PreOrder()
             {
                 internalPreOrder(Root);
@@ -98,11 +112,36 @@ namespace BinaryTress
                 {
                     return;
                 }
-                Console.Write(node.Data + "->");
+                Console.Write(node.Data + " -> ");
                 internalPreOrder(node.Left);
                 internalPreOrder(node.Right);
             }
+            public void InOrder()
+            {
+                internalInOrder(this.Root);
+                Console.WriteLine("");
+            }
+            void internalInOrder(TreeNode node)
+            {
+                if (node == null) return;
+                internalInOrder(node.Left);
+                Console.Write(node.Data + " -> ");
+                internalInOrder(node.Right);
+            }
+            public void PostOrder()
+            {
+                internalPostOrder(this.Root);
+                Console.WriteLine("");
+            }
+            void internalPostOrder(TreeNode node)
+            {
+                if (node == null) return;
+                internalPostOrder(node.Left);
+                internalPostOrder(node.Right);
+                Console.Write(node.Data + " -> ");
+            }
             #endregion
+
             class NodeInfo
             {
                 public TreeNode Node;
