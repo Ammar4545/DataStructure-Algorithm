@@ -32,6 +32,9 @@ namespace BinaryTress
             tree.BSInsert(5);
             tree.BSInsert(6);
             tree.Print();
+
+            Console.WriteLine(tree.IsExsit(5));
+            Console.WriteLine(tree.IsExsit(8));
         }
         public class BinaryTree<Tdata> where Tdata :IComparable<Tdata>
         {
@@ -74,6 +77,29 @@ namespace BinaryTress
                     }
                 }
 
+            }
+            public bool IsExsit(Tdata _data)
+            {
+                return BSFind(_data) != null;
+            }
+            TreeNode BSFind(Tdata data)
+            {
+                TreeNode currNode = this.Root;
+                while (currNode is not null) {
+                    if (currNode.Data.CompareTo(data)==0)
+                    {
+                        return currNode;
+                    }
+                    else if(currNode.Data.CompareTo(data) > 0)
+                    {
+                        currNode= currNode.Left;
+                    }
+                    else
+                    {
+                        currNode = currNode.Right;
+                    }
+                }
+                return null;
             }
             public void Insert(Tdata data)
             {
