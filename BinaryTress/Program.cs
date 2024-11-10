@@ -7,22 +7,31 @@ namespace BinaryTress
     {
         static void Main(string[] args)
         {
-            BinaryTree<char> tree = new BinaryTree<char>();
-            tree.Insert('A');
-            tree.Insert('B');
-            tree.Insert('C');
-            tree.Insert('D');
-            tree.Insert('E');
-            tree.Insert('F');
-            tree.Insert('G');
-            tree.Insert('H');
-            tree.Insert('I');
-            tree.Print();
-            Console.WriteLine("height = " +tree.Height());
+            //BinaryTree<char> tree = new BinaryTree<char>();
+            //tree.Insert('A');
+            //tree.Insert('B');
+            //tree.Insert('C');
+            //tree.Insert('D');
+            //tree.Insert('E');
+            //tree.Insert('F');
+            //tree.Insert('G');
+            //tree.Insert('H');
+            //tree.Insert('I');
+            //tree.Print();
+            //Console.WriteLine("height = " +tree.Height());
 
-            tree.PreOrder();
-            tree.InOrder();
-            tree.PostOrder();
+            //tree.PreOrder();
+            //tree.InOrder();
+            //tree.PostOrder();
+
+            BinaryTree<int> tree = new BinaryTree<int>();
+            tree.BSInsert(4);
+            tree.BSInsert(2);
+            tree.BSInsert(1);
+            tree.BSInsert(3);
+            tree.BSInsert(5);
+            tree.BSInsert(6);
+            tree.Print();
         }
         public class BinaryTree<Tdata> where Tdata :IComparable<Tdata>
         {
@@ -36,9 +45,37 @@ namespace BinaryTress
                     return;
                 }
                 TreeNode currNode= this.Root;
+                while (currNode is not null)
+                {
+                    if (currNode.Data.CompareTo(data) > 0)
+                    {
+                        if (currNode.Left is null)
+                        {
+                            currNode.Left = newNdoe;
+                            break;
+                        }
+                        else
+                        {
+                            currNode = currNode.Left;
+                        }
+                    }
+                    else
+                    {
+                        if (currNode.Right is null)
+                        {
+                            currNode.Right= newNdoe;
+                            break;
+                        }
+                        else
+                        {
+                            currNode = currNode.Right;
+                        }
+
+                    }
+                }
 
             }
-                public void Insert(Tdata data)
+            public void Insert(Tdata data)
             {
                 TreeNode newNdoe= new TreeNode(data);
                 if (this.Root==null)
