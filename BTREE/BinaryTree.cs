@@ -57,6 +57,19 @@ namespace BTREE
             }
 
         }
+
+        //How to get height of tree 
+        //we will use recursion
+        public int Height()
+        {
+            return internalHeight(this.Root);
+        }
+        private int internalHeight(TreeNode node)
+        {
+            if (node == null) return 0;
+            return 1+ Math.Max(internalHeight(node.Left), internalHeight(node.Right));
+        }
+
         //============================ Printer
         class NodeInfo
         {

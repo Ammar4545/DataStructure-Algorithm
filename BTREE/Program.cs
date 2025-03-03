@@ -15,6 +15,7 @@
             tree.Insert('H');
             tree.Insert('I');
             tree.Print();
+            Console.WriteLine(tree.Height());
         }
     }
 }
