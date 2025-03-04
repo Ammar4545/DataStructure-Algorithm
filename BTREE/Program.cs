@@ -16,6 +16,7 @@
             tree.Insert('I');
             tree.Print();
             Console.WriteLine(tree.Height());
+            tree.PreOrder();
         }
     }
 }

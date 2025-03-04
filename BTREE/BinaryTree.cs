@@ -70,6 +70,19 @@ namespace BTREE
             return 1+ Math.Max(internalHeight(node.Left), internalHeight(node.Right));
         }
 
+        public void PreOrder()
+        {
+            internalPreOrder(this.Root);
+            Console.WriteLine("");
+        }
+        void internalPreOrder(TreeNode node)
+        {
+            if (node == null) return;
+            Console.Write(node.Data+"->");
+            internalPreOrder(node.Left);
+            internalPreOrder(node.Right);
+        }
+
         //============================ Printer
         class NodeInfo
         {
