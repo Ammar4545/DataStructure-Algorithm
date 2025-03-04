@@ -20,6 +20,10 @@ namespace BTREE
             {
                 this.Data = data;
             }
+            public override string ToString()
+            {
+                return Data.ToString();
+            }
         }
         public void Insert(Tdata data)
         {
@@ -56,6 +60,25 @@ namespace BTREE
 
             }
 
+        }
+
+        public TreeNode Find(Tdata data)
+        {
+            return internalFind(this.Root,data);
+
+        }
+        private TreeNode internalFind(TreeNode node ,Tdata data)
+        {
+            if (node == null) return null;
+
+            if (node.Data.CompareTo(data)==0) return node;
+            
+
+            TreeNode foundNode = internalFind(node.Left, data);
+            if (foundNode != null) return foundNode;
+
+            
+            return internalFind(node.Right, data);
         }
 
         //How to get height of tree 

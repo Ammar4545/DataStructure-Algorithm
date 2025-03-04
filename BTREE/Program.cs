@@ -15,8 +15,10 @@
             tree.Insert('H');
             tree.Insert('I');
             tree.Print();
-            Console.WriteLine(tree.Height());
-            tree.PreOrder();
+            //Console.WriteLine(tree.Height());
+            //tree.PreOrder();
+
+            Console.WriteLine(tree.Find('p'));
         }
     }
 }
