@@ -83,6 +83,33 @@ namespace BTREE
             internalPreOrder(node.Right);
         }
 
+        public void InOrder()
+        {
+            internalInOrder(this.Root);
+            Console.WriteLine("");
+        }
+        void internalInOrder(TreeNode node)
+        {
+            if (node == null) return;
+            internalInOrder(node.Left);
+            Console.Write(node.Data + " -> ");
+            internalInOrder(node.Right);
+        }
+
+
+        public void PostOrder()
+        {
+            internalPostOrder(this.Root);
+            Console.WriteLine("");
+        }
+        void internalPostOrder(TreeNode node)
+        {
+            if (node == null) return;
+            internalPostOrder(node.Left);
+            internalPostOrder(node.Right);
+            Console.Write(node.Data + " -> ");
+        }
+
         //============================ Printer
         class NodeInfo
         {
