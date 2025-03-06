@@ -133,6 +133,61 @@ namespace BTREE
             Console.Write(node.Data + " -> ");
         }
 
+        public void Delete(Tdata data)
+        {
+            if(this.Root == null) return;
+
+            TreeNode nodeForDelete = null;
+            TreeNode parentOfDeepestNode = null;
+            TreeNode deepestNode = null;
+
+            Queue<TreeNode> queue = new Queue<TreeNode>();
+            queue.Enqueue(Root);
+
+            while (queue.Count > 0) 
+            { 
+                TreeNode current = queue.Dequeue();
+                if (current.Data.CompareTo(data)==0)
+                    nodeForDelete = current;
+
+                if (current.Left is not null)
+                {
+                    queue.Enqueue(current.Left);
+                    parentOfDeepestNode = current;
+                    
+                }
+
+                if (current.Right is not null)
+                {
+                    queue.Enqueue(current.Right);
+                    parentOfDeepestNode = current;
+                    
+                }
+
+                deepestNode=current;
+
+            }
+
+            if (deepestNode is not null && nodeForDelete is not null)
+            {
+                nodeForDelete.Data = deepestNode.Data; // Replace target with deepest node value
+
+                // Remove the deepest node
+                if (parentOfDeepestNode != null)
+                {
+                    if (parentOfDeepestNode.Right == deepestNode)
+                        parentOfDeepestNode.Right = null;
+                    else
+                        parentOfDeepestNode.Left = null;
+                }
+                else
+                {
+                    Root = null; // If only one node exists
+                }
+            }
+
+        }
+
         //============================ Printer
         class NodeInfo
         {
