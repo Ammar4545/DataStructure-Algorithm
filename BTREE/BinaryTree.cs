@@ -25,6 +25,45 @@ namespace BTREE
                 return Data.ToString();
             }
         }
+
+        public void BSInsert(Tdata data)
+        {
+            if (Root == null)
+            {
+                Root = new TreeNode(data);
+                return;
+            }
+            TreeNode currentNode = Root;
+
+            while (currentNode != null) 
+            {
+                if (currentNode.Data.CompareTo(data)>0)
+                {
+                    if (currentNode.Left is  null)
+                    {
+                        currentNode.Left = new TreeNode(data);
+                        break;
+                    }
+                    else
+                    {
+                        currentNode = currentNode.Left;
+                    }
+                }
+                else 
+                {
+                    if (currentNode.Right is null)
+                    {
+                        currentNode.Right = new TreeNode(data);
+                        break;
+                    }
+                    else
+                    {
+                        currentNode = currentNode.Right;
+                    }
+                }
+            }
+        }
+
         public void Insert(Tdata data)
         {
             TreeNode newNode = new TreeNode(data);
