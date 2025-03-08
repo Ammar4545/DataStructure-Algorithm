@@ -83,6 +83,8 @@
 
             Console.WriteLine( tree.IsExist(3));
 
+            Console.WriteLine( tree.FindNodeAndPaternt(3));
+
 
         }
     }

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BTREE
 {
@@ -26,6 +27,49 @@ namespace BTREE
             }
         }
 
+        public NodeAndParent FindNodeAndPaternt(Tdata data) 
+        {
+            TreeNode currentNode = this.Root;
+            TreeNode parent = null;
+            bool left = false;
+            NodeAndParent nodeAndParentInfo = null;
+
+            while (currentNode != null)
+            {
+                if (currentNode.Data.CompareTo(data) == 0)
+                {
+                    nodeAndParentInfo = new NodeAndParent
+                    {
+                        node = currentNode,
+                        Parent= parent,
+                        isLeft=left
+                    };
+                    break;
+                }
+                else if (currentNode.Data.CompareTo(data) > 0)
+                {
+                    parent = currentNode;
+                    left = true;
+                    currentNode = currentNode.Left;
+                }
+                else
+                {
+                    parent = currentNode;
+                    left = false;
+                    currentNode = currentNode.Right;
+                }
+
+            }
+            return nodeAndParentInfo;
+
+        }
+
+        public class NodeAndParent
+        {
+            public TreeNode Parent;
+            public TreeNode node;
+            public bool isLeft;
+        }
         public void BSInsert(Tdata data)
         {
             if (Root == null)
