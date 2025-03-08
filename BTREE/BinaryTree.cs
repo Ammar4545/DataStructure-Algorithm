@@ -64,6 +64,36 @@ namespace BTREE
             }
         }
 
+        public bool IsExist(Tdata data)
+        {
+            if (BSFind(data) is not null)
+            {
+                return true;
+            }
+            return false;
+        }
+        private TreeNode BSFind(Tdata data)
+        {
+            TreeNode currentNode = this.Root;
+            while (currentNode != null)
+            {
+                if (currentNode.Data.CompareTo(data)==0)
+                {
+                    return currentNode;
+                }
+                else if (currentNode.Data.CompareTo(data) > 0)
+                {
+                    currentNode = currentNode.Left;
+                }
+                else 
+                {
+                    currentNode = currentNode.Right;
+                }
+                
+            }
+            return null;
+        }
+
         public void Insert(Tdata data)
         {
             TreeNode newNode = new TreeNode(data);

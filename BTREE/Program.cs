@@ -79,7 +79,9 @@
             tree.BSInsert(2);
             tree.BSInsert(5);
             tree.BSInsert(6);
-            tree.Print();   
+            tree.Print();
+
+            Console.WriteLine( tree.IsExist(3));
 
 
         }
