@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -245,7 +246,86 @@ namespace BTREE
             internalPostOrder(node.Right);
             Console.Write(node.Data + " -> ");
         }
+        public void BSDelete(Tdata data)
+        {
+            NodeAndParent nodeAndParentInfo = this.FindNodeAndPaternt(data);
 
+            if (nodeAndParentInfo == null) return;
+
+            if (nodeAndParentInfo.node.Left != null && nodeAndParentInfo.node.Right !=null)
+            {
+                BSDelete_Has_Child(nodeAndParentInfo.node);
+            }
+
+            else if (nodeAndParentInfo.node.Left != null ^ nodeAndParentInfo.node.Right != null)
+            {
+                BSDelete_Has_One_Child(nodeAndParentInfo.node);
+            }
+
+            else
+            {
+                BSDelete_Is_Leaf(nodeAndParentInfo);
+            }
+
+        }
+        void BSDelete_Has_Child(TreeNode nodeToDelete)
+        {
+            TreeNode currentNode = nodeToDelete.Right; //go to right sub tree to get smallest in order successor  (9)
+
+            TreeNode parent = null;
+
+            while (currentNode.Left != null) 
+            {
+                parent = currentNode;
+                currentNode = currentNode.Left;
+            }
+            if (parent != null) 
+            {
+                parent.Left = currentNode.Right;
+            }
+            else
+            {
+                nodeToDelete.Right = currentNode.Right;
+            }
+
+            nodeToDelete.Data = currentNode.Data;
+        }
+
+        void BSDelete_Has_One_Child(TreeNode nodeToDelete)
+        {
+            TreeNode nodeToReplace = null;
+            if (nodeToDelete.Left is not null)
+            {
+                nodeToReplace = nodeToDelete.Left;
+            }
+            else
+            {
+                nodeToReplace = nodeToDelete.Right;
+            }
+
+            nodeToDelete.Data=nodeToReplace.Data;
+            nodeToDelete.Left=nodeToReplace.Left;
+            nodeToDelete.Right=nodeToReplace.Right;
+        }
+
+        void BSDelete_Is_Leaf(NodeAndParent nodeAndParentInfo)
+        {
+            if (nodeAndParentInfo.Parent == null)
+            {
+                this.Root = null;
+            }
+            else
+            {
+                if (nodeAndParentInfo.isLeft)
+                {
+                    nodeAndParentInfo.Parent.Left = null;
+                }
+                else 
+                {
+                    nodeAndParentInfo.Parent.Right = null;
+                }
+            }
+        }
         public void Delete(Tdata data)
         {
             if(this.Root == null) return;
