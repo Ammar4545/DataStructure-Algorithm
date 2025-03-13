@@ -73,22 +73,28 @@
 
             BinaryTree<int> tree = new BinaryTree<int>();
 
-            tree.BSInsert(4);
-            tree.BSInsert(2);
             tree.BSInsert(1);
+            tree.BSInsert(2);
             tree.BSInsert(3);
+            tree.BSInsert(4);
             tree.BSInsert(5);
             tree.BSInsert(6);
+            tree.BSInsert(7);
             tree.Print();
 
-            tree.BSDelete(2);
+            tree.Balance();
             tree.Print();
 
-            tree.BSDelete(5);
-            tree.Print();
+            //tree.Balance();
+            //tree.Print();
+            //tree.BSDelete(2);
+            //tree.Print();
 
-            tree.BSDelete(1);
-            tree.Print();
+            //tree.BSDelete(5);
+            //tree.Print();
+
+            //tree.BSDelete(1);
+            //tree.Print();
 
             //Console.WriteLine( tree.IsExist(3));
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,33 @@ namespace BTREE
                 return Data.ToString();
             }
         }
+
+        public void Balance()
+        {
+            List<Tdata> nodes = new List<Tdata>();
+            InOrderToArray(Root, nodes);
+            this.Root=RecursiveBanalnce(0, nodes.Count - 1, nodes);
+        }
+        public void InOrderToArray(TreeNode node, List<Tdata> nodes)
+        {
+            if (node == null) return;
+            InOrderToArray(node.Left, nodes);
+            nodes.Add(node.Data);
+            InOrderToArray(node.Right, nodes);
+        }
+
+        TreeNode RecursiveBanalnce(int start, int end, List<Tdata> nodes)
+        {
+            if (start > end) return null;
+            int mid = (start + end) / 2;
+
+            TreeNode nodeToRoot = new TreeNode(nodes[mid]);
+            nodeToRoot.Left = RecursiveBanalnce(start, mid - 1, nodes);
+            nodeToRoot.Right = RecursiveBanalnce(mid + 1, end, nodes);
+            return nodeToRoot;
+
+        }
+
 
         public NodeAndParent FindNodeAndPaternt(Tdata data) 
         {
@@ -64,7 +92,6 @@ namespace BTREE
             return nodeAndParentInfo;
 
         }
-
         public class NodeAndParent
         {
             public TreeNode Parent;
