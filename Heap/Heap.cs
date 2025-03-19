@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -47,6 +49,43 @@ namespace Heap
                 i = parent_index;
                 parent_index = (int)Math.Floor((i - 1) / 2.0);
             }
+        }
+
+        public int?  Pop()
+        {
+            if (_size == 0) return null;
+            int i = 0;
+            int data =_list[i];
+            _list[i] = _list[_size - 1];
+            _list.Remove(_size - 1);
+            _size--;
+
+            var left_index= (i * 2) + 1;
+            while (left_index < _size)
+            {
+                left_index = (i * 2) + 1;
+                int right_index = (i * 2) + 2;
+                int smaller_index=left_index;
+
+                if (right_index < _size && _list[right_index] < _list[left_index])
+                {
+                    smaller_index = right_index;  
+                }
+
+                if (_list[smaller_index] >= _list[i])
+                {
+                    break;
+                }
+
+                var temp = _list[i];
+                _list[i] = _list[smaller_index];
+                _list[smaller_index] = temp;
+
+                i = smaller_index;
+                left_index = i*2 + 1;
+            }
+            return data;
+
         }
         public void Print()
         {

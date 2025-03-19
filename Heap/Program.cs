@@ -13,10 +13,16 @@
             heap.Insert(20);
             heap.Insert(24);
             heap.Insert(27);
-            heap.Insert(15);
+            //heap.Insert(15);
 
             heap.Print();
             heap.Draw();
+
+            Console.WriteLine(heap.Pop());
+            heap.Print();
+            heap.Draw();
+
+            Console.WriteLine( heap.Size());
         }
     }
 }
